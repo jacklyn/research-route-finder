@@ -9,6 +9,17 @@ A six-question guide that helps product designers and PMs find the lightest resp
 
 Everything runs in the browser. There's no backend, login, database or build step.
 
+## Pages
+
+| Page | File |
+| --- | --- |
+| Find your approach (the quiz, home page) | `index.html` |
+| DIY research: when to research and when to bring in UXR | `diy-research.html` |
+| Running a study: the 13-step process | `running-a-study.html` |
+| Launch checklist | `before-you-launch.html` |
+
+All pages share one stylesheet, `assets/site.css`, and the same header. If you add a page, copy the `<header class="site-header">` block from an existing page and add the new link to the nav on every page.
+
 ## Run it locally
 
 Open `index.html` in a browser. That's it.
@@ -26,7 +37,9 @@ Note: on a free GitHub account, Pages sites are public to anyone with the link.
 
 ## Where to edit things
 
-All copy and logic live in `index.html`, inside the `<script>` near the bottom. Each block is labeled with a numbered comment.
+The guide pages are plain HTML, so edit their text directly in each file. The launch checklist items live in a `CHECKS` list in the `<script>` at the bottom of `before-you-launch.html`.
+
+For the quiz, all copy and logic live in `index.html`, inside the `<script>` near the bottom. Each block is labeled with a numbered comment.
 
 | What you want to change | Look for |
 | --- | --- |
@@ -36,6 +49,7 @@ All copy and logic live in `index.html`, inside the `<script>` near the bottom. 
 | Sample questions to try and avoid | `2c.` → `SAMPLE_QUESTIONS`, `QUESTION_TIPS` |
 | Result headlines, next steps, "Bring Research" lists | `3. CONTENT: ROUTES` → `ROUTES` |
 | Intro question prompt, copy-summary messages | `INTRO_PROMPT`, `COPY_TEXT` |
+| Links from results to the guide pages | `GUIDE_LINKS` |
 | Which answers lead to which route | `4. RULES` → `RULES` |
 | "See how we got here" explanations | `5.` → `FACTORS` |
 
@@ -52,7 +66,7 @@ Each condition has a `test` (which answers trigger it) and a `reason` (the text 
 
 ### Styling
 
-Colors and fonts are defined as tokens at the top of the `<style>` block (`:root`), with dark-mode values right below. Change the accent by editing `--accent` in both places.
+Colors and fonts are defined as tokens at the top of `assets/site.css` (`:root`), with dark-mode values right below. Change the accent by editing `--accent` in both places.
 
 ## Tech
 

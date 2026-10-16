@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="How to plan, build, analyze and share a lightweight DIY research study.">
+<title>Running a DIY study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="wordmark" href="./">UX Research · Route finder</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="./">Find your approach</a>
+      <a href="diy-research.html">DIY research</a>
+      <a href="running-a-study.html" aria-current="page">Running a study</a>
+      <a href="before-you-launch.html">Launch checklist</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page page--toc">
+  <div class="page__inner">
+
+    <details class="toc" id="toc" open>
+      <summary>On this page</summary>
+      <ol>
+        <li class="toc__phase">Plan</li>
+        <li><a href="#decision"><span>01</span><span>Start with the decision</span></a></li>
+        <li><a href="#already-know"><span>02</span><span>Check what we already know</span></a></li>
+        <li><a href="#assumptions"><span>03</span><span>Name your assumptions</span></a></li>
+        <li><a href="#method"><span>04</span><span>Pick the simplest method</span></a></li>
+        <li class="toc__phase">Build</li>
+        <li><a href="#recruit"><span>05</span><span>Recruit for the question</span></a></li>
+        <li><a href="#neutral"><span>06</span><span>Write neutral tasks</span></a></li>
+        <li><a href="#prototype"><span>07</span><span>Know your prototype’s limits</span></a></li>
+        <li><a href="#pilot"><span>08</span><span>Pilot everything</span></a></li>
+        <li class="toc__phase">Analyze</li>
+        <li><a href="#sample"><span>09</span><span>Know what your sample can tell you</span></a></li>
+        <li><a href="#do-vs-say"><span>10</span><span>Separate doing from saying</span></a></li>
+        <li><a href="#patterns"><span>11</span><span>Look for patterns</span></a></li>
+        <li><a href="#metrics"><span>12</span><span>Treat metrics as evidence</span></a></li>
+        <li class="toc__phase">Share</li>
+        <li><a href="#close-the-loop"><span>13</span><span>Close the loop</span></a></li>
+      </ol>
+    </details>
+
+    <article class="doc">
+
+      <header class="doc-head">
+        <p class="eyebrow">Guide</p>
+        <h1>Running a DIY study</h1>
+        <p class="lede">A study should exist because there’s a decision we need help making. Here’s how to get from that decision to something the next designer can build on.</p>
+      </header>
+
+      <!-- PLAN -->
+      <div class="phase"><span class="phase__name">Plan</span><span class="phase__range">Steps 1–4</span></div>
+
+      <section class="block" id="decision">
+        <div class="step-head"><span class="step-num">01</span><h2>Start with the decision, not the method</h2></div>
+        <p>Before you open Maze or write interview questions, write down:</p>
+        <ul class="list">
+          <li>What decision are we trying to make?</li>
+          <li>What do we need to learn to make it?</li>
+          <li>What would we do differently depending on what we learn?</li>
+        </ul>
+        <p>If you can’t answer those yet, you probably aren’t ready to write the study.</p>
+        <div class="swap">
+          <div class="swap__no"><span class="swap__label">Instead of</span><span class="swap__text">We want to test the new dashboard.</span></div>
+          <div class="swap__yes"><span class="swap__label">Try</span><span class="swap__text">We need to understand whether users can identify which piece of equipment needs their attention and know what to do next.</span></div>
+        </div>
+        <p>The first gives you a thing to test. The second tells you what you actually need to learn.</p>
+        <h3>Research questions vs. participant tasks</h3>
+        <p>A good research question is usually broader than what you ask a participant. Research questions guide the study. Participant tasks help answer them.</p>
+        <dl class="defs defs--mono">
+          <div><dt>Research question</dt><dd>Can homeowners successfully change their temperature settings using this new interaction?</dd></div>
+          <div><dt>Participant task</dt><dd>Imagine you’re leaving the house for the afternoon and want to change the temperature to 76°. Show us what you would do.</dd></div>
+        </dl>
+      </section>
+
+      <section class="block" id="already-know">
+        <div class="step-head"><span class="step-num">02</span><h2>Check what we already know</h2></div>
+        <p>Before starting a new study, check whether we already have research that answers the question. Look at previous studies, analytics, customer feedback, support data and research from adjacent products.</p>
+        <p>We shouldn’t keep asking users questions we already know the answers to.</p>
+      </section>
+
+      <section class="block" id="assumptions">
+        <div class="step-head"><span class="step-num">03</span><h2>Name your assumptions</h2></div>
+        <p>What are we currently assuming to be true? Those assumptions become the foundation of your research questions. For example:</p>
+        <ul class="examples">
+          <li>Users understand what “System Mode” means.</li>
+          <li>Technicians will recognize this icon.</li>
+          <li>Users will know which equipment card to select.</li>
+          <li>Sellers think about their workflow by customer rather than by tool.</li>
+        </ul>
+      </section>
+
+      <section class="block" id="method">
+        <div class="step-head"><span class="step-num">04</span><h2>Pick the simplest method that will answer the question</h2></div>
+        <p>Don’t make the study more complicated than it needs to be. The tool comes after the question.</p>
+        <dl class="defs">
+          <div><dt>Can someone complete a workflow?</dt><dd>Run a usability test.</dd></div>
+          <div><dt>Why do people behave a certain way?</dt><dd>Talk to them.</dd></div>
+          <div><dt>Choosing between two UI approaches?</dt><dd>Test the concepts.</dd></div>
+          <div><dt>What do people actually do in production?</dt><dd>Analytics may be more useful than asking.</dd></div>
+        </dl>
+        <h3>Test the thing you actually want to learn</h3>
+        <p>Try not to ask people to predict their future behavior. “Would you use this feature?” and “Would this be useful?” sound reassuring, but they’re usually weaker evidence than watching someone try to do the actual task.</p>
+        <p>Whenever you can, put participants in a realistic situation and ask them to do something. If you can’t observe behavior, ask about things they’ve actually done before, not what they might do someday.</p>
+        <p class="note">Not sure which method fits? <a href="./">Take the quiz</a>.</p>
+      </section>
+
+      <!-- BUILD -->
+      <div class="phase"><span class="phase__name">Build</span><span class="phase__range">Steps 5–8</span></div>
+
+      <section class="block" id="recruit">
+        <div class="step-head"><span class="step-num">05</span><h2>Recruit for the question, not for convenience</h2></div>
+        <p class="pullquote">Five perfect participants are more useful than fifty people who don’t resemble the users we’re designing for.</p>
+        <p>Be explicit about who needs to participate and why: what they need to know, own, use or have experienced to reasonably represent the people we’re designing for.</p>
+        <p>For specialized Carrier audiences in particular, “someone who works in HVAC” is often not specific enough. A homeowner, installer, service technician, controls technician, facility manager and aftermarket seller can have completely different knowledge and goals.</p>
+        <p>Be careful not to over-screen, too. If the question is about something any homeowner can understand, you probably don’t need an eight-question screener. If it’s about commissioning a VRF system, “works in HVAC” probably isn’t enough.</p>
+        <p><strong>The participant criteria should match the decision.</strong></p>
+      </section>
+
+      <section class="block" id="neutral">
+        <div class="step-head"><span class="step-num">06</span><h2>Write neutral tasks and questions</h2></div>
+        <p>We’re trying to learn whether the design works, not convince participants that it does. Don’t explain the interface, teach terminology or give away the language, location or action you’re testing.</p>
+        <div class="swap">
+          <div class="swap__no"><span class="swap__label">Instead of</span><span class="swap__text">Use the Schedule button to change your schedule.</span></div>
+          <div class="swap__yes"><span class="swap__label">Try</span><span class="swap__text">You want your house to be warmer when you wake up tomorrow morning. Show us what you would do.</span></div>
+        </div>
+        <div class="swap">
+          <div class="swap__no"><span class="swap__label">Instead of</span><span class="swap__text">Was this easy?</span></div>
+          <div class="swap__yes"><span class="swap__label">Try</span><span class="swap__text">How easy or difficult was this task?</span></div>
+        </div>
+        <p>Watch what people do, and ask things like:</p>
+        <ul class="prompts">
+          <li>What would you do next?</li>
+          <li>What did you expect to happen there?</li>
+          <li>What does this mean to you?</li>
+          <li>Tell me what you’re thinking.</li>
+        </ul>
+        <p>Always give people room to tell you something you didn’t anticipate. And if you have to explain the design for a participant to understand it, that’s research data too.</p>
+      </section>
+
+      <section class="block" id="prototype">
+        <div class="step-head"><span class="step-num">07</span><h2>Know your prototype’s limits</h2></div>
+        <p>A prototype isn’t the product. Participants may struggle because:</p>
+        <ul class="list">
+          <li>an interaction isn’t fully built</li>
+          <li>expected content is missing</li>
+          <li>the prototype behaves differently from the real product</li>
+          <li>the screen size is unrealistic</li>
+          <li>scrolling or keyboard behavior is different</li>
+          <li>they reach an artificial dead end</li>
+        </ul>
+        <p>If a limitation will affect the task, tell participants what they need to know without telling them how to solve it. When you analyze, separate prototype problems from experience problems.</p>
+      </section>
+
+      <section class="block" id="pilot">
+        <div class="step-head"><span class="step-num">08</span><h2>Pilot everything</h2></div>
+        <p class="lead">Never make your participants your QA team.</p>
+        <p>Before launching, have at least one person who wasn’t involved in writing the study go through the entire experience. Check:</p>
+        <ul class="list">
+          <li>Do the instructions make sense?</li>
+          <li>Does the prototype work?</li>
+          <li>Are there dead ends?</li>
+          <li>Does anything accidentally reveal the answer?</li>
+          <li>Does the study work at the screen size and device participants will actually use?</li>
+          <li>Does Maze capture what you think it’s capturing?</li>
+        </ul>
+        <p>A five-minute pilot can save an entire study.</p>
+      </section>
+
+      <!-- ANALYZE -->
+      <div class="phase"><span class="phase__name">Analyze</span><span class="phase__range">Steps 9–12</span></div>
+
+      <section class="block" id="sample">
+        <div class="step-head"><span class="step-num">09</span><h2>Know what your sample can and can’t tell you</h2></div>
+        <p>There isn’t one magic participant count for every study. For a lightweight qualitative usability check, roughly 5–8 representative participants can often surface the biggest usability problems and give us directional evidence.</p>
+        <div class="swap">
+          <div class="swap__no"><span class="swap__label">That doesn’t mean</span><span class="swap__text">6 of 8 participants = 75% of our users.</span></div>
+          <div class="swap__yes"><span class="swap__label">It means</span><span class="swap__text">We found where problems exist and what’s happening.</span></div>
+        </div>
+        <p>A small study can tell us what is happening and where problems exist. It usually can’t tell us how common those problems are across all our users.</p>
+        <p>If you want to say how common something is, compare groups, set benchmarks or report percentages with confidence, that’s a quantitative question. It needs a more deliberate approach to sample size, so talk with UXR.</p>
+      </section>
+
+      <section class="block" id="do-vs-say">
+        <div class="step-head"><span class="step-num">10</span><h2>Separate what people do from what they say</h2></div>
+        <p>Both matter, but they tell us different things. If someone says “That was really easy” but took three wrong turns and failed the task, the behavior is the important evidence.</p>
+        <p>Be careful with preference, too. People are often good at telling us what they like and much less reliable at predicting what they’ll actually use. If someone prefers Concept A but successfully understands and uses Concept B, don’t automatically treat preference as the winner.</p>
+        <dl class="defs defs--mono">
+          <div><dt>Behavior</dt><dd>What actually happened</dd></div>
+          <div><dt>Attitude</dt><dd>What the participant said or felt</dd></div>
+          <div><dt>Interpretation</dt><dd>Why we think it happened</dd></div>
+        </dl>
+        <p>Keeping those separate makes the analysis much more defensible.</p>
+      </section>
+
+      <section class="block" id="patterns">
+        <div class="step-head"><span class="step-num">11</span><h2>Look for patterns, not interesting quotes</h2></div>
+        <div class="swap">
+          <div class="swap__no"><span class="swap__label">Not a finding</span><span class="swap__text">One participant said, “I don’t like that button.”</span></div>
+          <div class="swap__yes"><span class="swap__label">A finding</span><span class="swap__text">Several participants failed to notice the button.</span></div>
+        </div>
+        <p>A memorable comment isn’t automatically a finding. Look across participants and ask:</p>
+        <ul class="list">
+          <li>What happened repeatedly?</li>
+          <li>Where did people behave differently than we expected?</li>
+          <li>What caused failures or confusion?</li>
+          <li>Are different types of users behaving differently?</li>
+          <li>What contradicts our initial assumption?</li>
+        </ul>
+        <p>Contradictory evidence is especially important. Don’t clean it up just to make the readout simpler. Sometimes the finding really is “We don’t know yet,” and that’s useful too.</p>
+      </section>
+
+      <section class="block" id="metrics">
+        <div class="step-head"><span class="step-num">12</span><h2>Treat Maze metrics as evidence, not conclusions</h2></div>
+        <p>Maze gives us task completion, paths, misclicks, heatmaps, ratings and preference percentages. Those numbers still need interpretation.</p>
+        <dl class="defs defs--mono">
+          <div><dt>Measurement</dt><dd>80% task completion</dd></div>
+          <div><dt>Interpretation</dt><dd>Participants understood the workflow</dd></div>
+        </dl>
+        <p>Before you make that leap, look at how people completed the task. Did they hesitate? Backtrack? Stumble into the right answer by accident? Misunderstand what happened afterward?</p>
+        <p>The number should help you investigate the experience, not replace the investigation.</p>
+      </section>
+
+      <!-- SHARE -->
+      <div class="phase"><span class="phase__name">Share</span><span class="phase__range">Step 13</span></div>
+
+      <section class="block" id="close-the-loop">
+        <div class="step-head"><span class="step-num">13</span><h2>Close the loop</h2></div>
+        <p>Share what we learned, not just what we changed. Every study should leave behind enough that someone else can understand what happened. You don’t need a 40-slide deck. Capture:</p>
+        <ul class="list list--steps">
+          <li>The decision we were trying to make</li>
+          <li>What we wanted to learn</li>
+          <li>Who participated</li>
+          <li>What method we used</li>
+          <li>What we observed</li>
+          <li>What we believe it means</li>
+          <li>What we’re changing because of it</li>
+          <li>What’s still unanswered</li>
+        </ul>
+        <div class="aside-note">
+          <p><strong>Save it somewhere the next designer can find it.</strong> Otherwise, six months from now, someone will run the exact same research again.</p>
+        </div>
+      </section>
+
+      <nav class="next-links" aria-label="Keep going">
+        <a class="next-link" href="before-you-launch.html">
+          <span class="next-link__kicker">Next</span>
+          <span class="next-link__title">Launch checklist →</span>
+          <span class="muted">Eight checks before you hit Launch.</span>
+        </a>
+        <a class="next-link" href="diy-research.html">
+          <span class="next-link__kicker">Back to</span>
+          <span class="next-link__title">DIY research</span>
+          <span class="muted">When to DIY and when to bring in UXR.</span>
+        </a>
+      </nav>
+
+    </article>
+  </div>
+</main>
+
+<script>
+  // The contents list starts open on wide screens and closed on phones.
+  (function () {
+    var toc = document.getElementById("toc");
+    var mq = window.matchMedia("(max-width: 900px)");
+    function sync() { toc.open = !mq.matches; }
+    sync();
+    if (mq.addEventListener) mq.addEventListener("change", sync);
+    toc.addEventListener("click", function (e) { if (e.target.closest("a") && mq.matches) toc.open = false; });
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Eight checks before you launch a DIY study, and when to ask UX Research for help.">
+<title>Before you launch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="site-header__inner">
+    <a class="wordmark" href="./">UX Research · Route finder</a>
+    <nav class="site-nav" aria-label="Site">
+      <a href="./">Find your approach</a>
+      <a href="diy-research.html">DIY research</a>
+      <a href="running-a-study.html">Running a study</a>
+      <a href="before-you-launch.html" aria-current="page">Launch checklist</a>
+    </nav>
+  </div>
+</header>
+
+<main class="page">
+  <div class="page__inner">
+    <article class="doc">
+
+      <header class="doc-head">
+        <p class="eyebrow">Checklist</p>
+        <h1>Before you hit Launch</h1>
+        <p class="lede">Run through these before your study goes live. If you can’t check one off, the linked step explains what to do.</p>
+      </header>
+
+      <section class="block checklist" aria-labelledby="checks-title">
+        <h2 id="checks-title" hidden>Launch checklist</h2>
+        <div class="checklist__status">
+          <p class="checklist__count" id="count" aria-live="polite"><strong>0</strong> of 8 checked</p>
+          <button type="button" class="btn btn--ghost" id="reset">Clear checklist</button>
+        </div>
+        <div class="progress__track" aria-hidden="true" id="bar">
+          <span class="progress__seg"></span><span class="progress__seg"></span><span class="progress__seg"></span><span class="progress__seg"></span>
+          <span class="progress__seg"></span><span class="progress__seg"></span><span class="progress__seg"></span><span class="progress__seg"></span>
+        </div>
+        <ul class="checks" id="checks"></ul>
+        <div class="ready" id="ready" hidden>
+          <p class="ready__title">You’re ready to launch.</p>
+          <p>Good luck. Remember to save what you learn somewhere the next designer can find it.</p>
+        </div>
+      </section>
+
+      <section class="block" id="ask-for-help">
+        <h2>When to ask for help</h2>
+        <p class="lead">Asking UXR for help doesn’t mean handing over the study.</p>
+        <p>Grab Research when:</p>
+        <ul class="list">
+          <li>you can’t clearly articulate the research question</li>
+          <li>the findings will support a significant product or investment decision</li>
+          <li>you’re entering an unfamiliar problem space</li>
+          <li>recruiting is complicated</li>
+          <li>you need to make quantitative claims</li>
+          <li>results are contradictory and you’re not sure how to interpret them</li>
+          <li>the topic is particularly sensitive</li>
+          <li>you need deeper probing than an unmoderated study can provide</li>
+        </ul>
+        <div class="aside-note">
+          <p><strong>Sometimes a 15–20 minute conversation before launch is all you need.</strong></p>
+        </div>
+      </section>
+
+      <nav class="next-links" aria-label="Keep going">
+        <a class="next-link" href="running-a-study.html">
+          <span class="next-link__kicker">Need more detail?</span>
+          <span class="next-link__title">Running a study →</span>
+          <span class="muted">The full process, step by step.</span>
+        </a>
+        <a class="next-link" href="./">
+          <span class="next-link__kicker">Starting something new?</span>
+          <span class="next-link__title">Find your approach →</span>
+          <span class="muted">Six questions, about two minutes.</span>
+        </a>
+      </nav>
+
+    </article>
+  </div>
+</main>
+
+<script>
+  // Checklist content. Edit the items here; `step` links to a section on the Running a study page.
+  var CHECKS = [
+    { id: "decision",   title: "I know what decision this study will inform.",            hint: "Step 1: Start with the decision", step: "decision" },
+    { id: "answered",   title: "I’ve checked whether this question has already been answered.", hint: "Step 2: Check what we already know", step: "already-know" },
+    { id: "who",        title: "I know who needs to participate and why.",                 hint: "Step 5: Recruit for the question", step: "recruit" },
+    { id: "behavior",   title: "I’m testing behavior where behavior can be observed.",     hint: "Step 4: Pick the simplest method", step: "method" },
+    { id: "neutral",    title: "My tasks don’t give away the answer.",                     hint: "Step 6: Write neutral tasks", step: "neutral" },
+    { id: "pilot",      title: "Someone else has piloted the entire study.",               hint: "Step 8: Pilot everything", step: "pilot" },
+    { id: "sample",     title: "I know what this sample can and can’t tell me.",           hint: "Step 9: Know what your sample can tell you", step: "sample" },
+    { id: "share",      title: "I know how I’ll analyze and share what we learn.",         hint: "Steps 10–13: Analyze and close the loop", step: "do-vs-say" }
+  ];
+
+  (function () {
+    var KEY = "launch-checklist";
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(KEY) || "{}") || {}; } catch (e) { saved = {}; }
+
+    var list = document.getElementById("checks");
+    var tick = '<svg viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 7.2l2.6 2.6L11 4.4" stroke="var(--accent-ink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+
+    CHECKS.forEach(function (c) {
+      var li = document.createElement("li");
+      li.className = "check";
+      li.innerHTML =
+        '<input type="checkbox" id="check-' + c.id + '">' +
+        '<label for="check-' + c.id + '">' +
+          '<span class="check__box">' + tick + '</span>' +
+          '<span class="check__text"><span class="check__title"></span>' +
+          '<a class="check__hint inline-link" href="running-a-study.html#' + c.step + '"></a></span>' +
+        '</label>';
+      li.querySelector(".check__title").textContent = c.title;
+      li.querySelector(".check__hint").textContent = c.hint;
+      var box = li.querySelector("input");
+      box.checked = !!saved[c.id];
+      box.addEventListener("change", function () { saved[c.id] = box.checked; update(true); });
+      list.appendChild(li);
+    });
+
+    function update(store) {
+      var done = CHECKS.filter(function (c) { return saved[c.id]; }).length;
+      document.getElementById("count").innerHTML = "<strong>" + done + "</strong> of " + CHECKS.length + " checked";
+      var segs = document.querySelectorAll("#bar .progress__seg");
+      segs.forEach(function (s, i) { s.className = "progress__seg" + (i < done ? " is-current" : ""); });
+      document.getElementById("ready").hidden = done !== CHECKS.length;
+      if (store) { try { localStorage.setItem(KEY, JSON.stringify(saved)); } catch (e) {} }
+    }
+
+    document.getElementById("reset").addEventListener("click", function () {
+      saved = {};
+      list.querySelectorAll("input").forEach(function (b) { b.checked = false; });
+      update(true);
+    });
+
+    update(false);
+  })();
+</script>
+</body>
+</html>

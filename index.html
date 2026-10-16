@@ -1,0 +1,1415 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="A six-question guide to the lightest responsible research approach for your design decision.">
+<title>What kind of research should I do?</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+/* Layout: one narrow centered column, one question per screen; the result is a reveal with a rigor scale, then stacked sections. */
+:root {
+  --bg: #F5F7F5;
+  --surface: #FFFFFF;
+  --surface-2: #EBEFEC;
+  --fg: #121715;
+  --muted: #4F5954;
+  --line: #D5DCD7;
+  --line-strong: #A9B4AE;
+  --accent: #12684F;
+  --accent-ink: #FFFFFF;
+  --accent-soft: #E1EFE9;
+  --focus: #12684F;
+
+  --font-display: "Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Instrument Sans", "Helvetica Neue", "Segoe UI", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  --radius: 10px;
+  --radius-sm: 6px;
+  --ease: cubic-bezier(.2,.7,.2,1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0F1311; --surface: #171C1A; --surface-2: #1F2623; --fg: #EBEFED; --muted: #A2ADA7;
+    --line: #2C3431; --line-strong: #4A5550; --accent: #5FCCA9; --accent-ink: #08140F;
+    --accent-soft: #17302A; --focus: #5FCCA9; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0F1311; --surface: #171C1A; --surface-2: #1F2623; --fg: #EBEFED; --muted: #A2ADA7;
+  --line: #2C3431; --line-strong: #4A5550; --accent: #5FCCA9; --accent-ink: #08140F;
+  --accent-soft: #17302A; --focus: #5FCCA9; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { color-scheme: light dark; }
+body { margin: 0; }
+[hidden] { display: none !important; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 17px; line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+#app {
+  min-height: 100vh;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 0 64px;
+}
+.shell { max-width: 720px; margin: 0 auto; }
+
+/* Top bar */
+.topbar {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding-block: 20px; min-height: 72px;
+}
+.wordmark {
+  font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase;
+  color: var(--muted); background: none; border: 0; padding: 4px 0; cursor: pointer;
+}
+.wordmark:hover { color: var(--fg); }
+.topbar__meta { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; color: var(--muted); text-transform: uppercase; }
+
+/* Type */
+.eyebrow {
+  font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .1em;
+  text-transform: uppercase; color: var(--accent); margin: 0;
+}
+h1, h2, h3 { font-family: var(--font-display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+.display { font-size: clamp(40px, 7.4vw, 68px); line-height: 1.02; font-weight: 750; }
+.headline { font-size: clamp(30px, 5vw, 44px); line-height: 1.08; font-weight: 650; }
+.lede { font-size: clamp(19px, 2.4vw, 22px); line-height: 1.45; color: var(--fg); margin: 0; max-width: 34em; }
+.support { color: var(--muted); margin: 0; max-width: 36em; }
+h1:focus, h2:focus { outline: none; }
+
+/* Buttons */
+.btn {
+  font: inherit; font-weight: 600; font-size: 16px; line-height: 1;
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  min-height: 50px; padding: 0 22px; border-radius: var(--radius-sm);
+  border: 1.5px solid transparent; cursor: pointer;
+  transition: background-color .15s, border-color .15s, color .15s, transform .15s var(--ease);
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--fg); color: var(--bg); }
+.btn--primary:hover { background: var(--accent); color: var(--accent-ink); }
+.btn--secondary { background: transparent; color: var(--fg); border-color: var(--line-strong); }
+.btn--secondary:hover { border-color: var(--fg); }
+.btn--ghost { background: transparent; color: var(--muted); padding: 0 12px; }
+.btn--ghost:hover { color: var(--fg); }
+.btn[disabled] { opacity: .38; cursor: not-allowed; }
+.btn[disabled]:hover { background: var(--fg); color: var(--bg); }
+.btn .arrow { transition: transform .2s var(--ease); }
+.btn:not([disabled]):hover .arrow { transform: translateX(3px); }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+/* Stage transitions */
+.stage { animation: stage-in .42s var(--ease) both; }
+.stage--back { animation-name: stage-in-back; }
+@keyframes stage-in { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+@keyframes stage-in-back { from { opacity: 0; transform: translateY(-14px); } to { opacity: 1; transform: none; } }
+
+/* Intro */
+.intro { display: grid; gap: 28px; padding-top: clamp(24px, 8vh, 88px); }
+.intro__note {
+  border-left: 3px solid var(--accent); padding: 4px 0 4px 18px; margin: 0;
+  color: var(--muted); max-width: 34em;
+}
+.intro__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 16px 20px; padding-top: 4px; }
+.intro__time { font-family: var(--font-mono); font-size: 12px; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); }
+.landings { margin-top: 40px; padding-top: 28px; border-top: 1px solid var(--line); display: grid; gap: 16px; }
+.landings__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+
+/* Rigor scale */
+.scale { display: grid; gap: 10px; }
+.scale__track { display: grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap: 6px; list-style: none; margin: 0; padding: 0; }
+.scale__stop { display: grid; gap: 10px; min-width: 0; }
+.scale__bar { height: 6px; border-radius: 3px; background: var(--surface-2); position: relative; overflow: hidden; }
+.scale__bar::after { content: ""; position: absolute; inset: 0; background: var(--line-strong); transform-origin: left; }
+.scale__name { font-size: 14px; line-height: 1.3; color: var(--muted); font-weight: 500; }
+.scale__ends { display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.scale--result .scale__bar::after { background: var(--line); }
+.scale--result .is-active .scale__bar::after { background: var(--accent); animation: fill .7s .25s var(--ease) both; }
+.scale--result .is-active .scale__name { color: var(--fg); font-weight: 600; }
+@keyframes fill { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+/* Progress */
+.progress { display: grid; gap: 10px; }
+.progress__label { font-family: var(--font-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; }
+.progress__label strong { color: var(--fg); font-weight: 500; }
+.progress__track { display: grid; grid-auto-flow: column; grid-auto-columns: 1fr; gap: 4px; }
+.progress__seg { height: 4px; border-radius: 2px; background: var(--line); transition: background-color .3s var(--ease); }
+.progress__seg.is-done { background: var(--fg); }
+.progress__seg.is-current { background: var(--accent); }
+
+/* Question */
+.question { display: grid; gap: 32px; padding-top: 12px; }
+.question__head { display: grid; gap: 12px; }
+.answers { display: grid; gap: 10px; border: 0; margin: 0; padding: 0; min-width: 0; }
+.answer { position: relative; display: block; }
+.answer input { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.answer__card {
+  display: grid; grid-template-columns: auto 1fr auto; align-items: start; gap: 4px 16px;
+  padding: 18px 20px; background: var(--surface); border: 1.5px solid var(--line);
+  border-radius: var(--radius); cursor: pointer;
+  transition: border-color .15s, background-color .15s, box-shadow .15s, transform .15s var(--ease);
+}
+.answer__card:hover { border-color: var(--line-strong); transform: translateY(-1px); }
+.answer__key {
+  grid-row: span 2; width: 30px; height: 30px; border-radius: var(--radius-sm);
+  display: grid; place-items: center; font-family: var(--font-mono); font-size: 13px;
+  color: var(--muted); border: 1px solid var(--line); background: var(--bg);
+  transition: all .15s;
+}
+.answer__title { font-family: var(--font-display); font-weight: 650; font-size: 20px; line-height: 1.25; letter-spacing: -0.01em; padding-top: 2px; min-width: 0; }
+.answer__desc { color: var(--muted); font-size: 16px; grid-column: 2; min-width: 0; }
+.answer__check {
+  grid-row: span 2; width: 22px; height: 22px; border-radius: 50%; margin-top: 4px;
+  border: 1.5px solid var(--line-strong); display: grid; place-items: center; transition: all .15s;
+}
+.answer__check svg { width: 12px; height: 12px; opacity: 0; transform: scale(.5); transition: all .2s var(--ease); }
+.answer input:checked + .answer__card { border-color: var(--accent); background: var(--accent-soft); box-shadow: 0 0 0 1px var(--accent) inset; }
+.answer input:checked + .answer__card .answer__key { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
+.answer input:checked + .answer__card .answer__check { background: var(--accent); border-color: var(--accent); }
+.answer input:checked + .answer__card .answer__check svg { opacity: 1; transform: none; }
+.answer input:focus-visible + .answer__card { outline: 3px solid var(--focus); outline-offset: 3px; }
+
+.navrow {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+  padding-top: 8px;
+}
+.navrow__hint { font-size: 13px; color: var(--muted); display: none; }
+@media (min-width: 720px) { .navrow__hint { display: inline; } }
+
+/* Interstitial */
+.pause { display: grid; gap: 24px; padding-top: clamp(24px, 6vh, 64px); }
+.pause__list { display: flex; flex-wrap: wrap; gap: 8px; list-style: none; padding: 0; margin: 0; }
+.pause__list li { font-size: 14px; padding: 6px 12px; border: 1px solid var(--line); border-radius: 999px; color: var(--muted); background: var(--surface); }
+.pause__actions { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 8px; }
+
+/* Result */
+.result { display: grid; gap: 40px; padding-top: 12px; }
+.reveal { display: grid; gap: 20px; }
+.reveal .headline-xl { font-size: clamp(38px, 6.6vw, 60px); line-height: 1.03; font-weight: 750; animation: rise .6s .05s var(--ease) both; }
+.reveal .lede { animation: rise .6s .15s var(--ease) both; }
+@keyframes rise { from { opacity: .001; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+.reveal__extra { color: var(--muted); margin: 0; max-width: 36em; }
+
+.sections { display: grid; gap: 0; border-top: 1px solid var(--line); }
+.rsec { display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 32px; padding-block: 28px; border-bottom: 1px solid var(--line); }
+.rsec__title { font-family: var(--font-mono); font-size: 12px; font-weight: 500; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0; padding-top: 5px; }
+.rsec__body { display: grid; gap: 14px; min-width: 0; }
+.rsec__body p { margin: 0; }
+@media (max-width: 640px) { .rsec { grid-template-columns: minmax(0,1fr); } .rsec__title { padding-top: 0; } }
+
+.method { display: grid; gap: 8px; }
+.method__label { font-size: 14px; color: var(--muted); margin: 0; }
+.method__name { font-family: var(--font-display); font-size: 26px; font-weight: 650; line-height: 1.15; letter-spacing: -0.01em; }
+.count { font-family: var(--font-display); font-size: 26px; font-weight: 650; line-height: 1.15; letter-spacing: -0.01em; font-variant-numeric: tabular-nums; }
+.muted { color: var(--muted); }
+
+.list { margin: 0; padding: 0; list-style: none; display: grid; gap: 10px; }
+.list li { position: relative; padding-left: 22px; }
+.list li::before { content: ""; position: absolute; left: 2px; top: .68em; width: 8px; height: 2px; background: var(--accent); }
+.list--steps { counter-reset: s; }
+.list--steps li { padding-left: 34px; }
+.list--steps li::before {
+  counter-increment: s; content: counter(s); width: 22px; height: 22px; top: .12em; left: 0;
+  background: none; border: 1px solid var(--line-strong); border-radius: 50%;
+  font-family: var(--font-mono); font-size: 11px; display: grid; place-items: center; color: var(--muted);
+}
+.bring { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; display: grid; gap: 12px; }
+.bring__title { font-weight: 600; margin: 0; }
+.note { font-size: 15px; color: var(--muted); margin: 0; }
+.note strong { color: var(--fg); font-weight: 600; }
+.cta-line { font-family: var(--font-display); font-weight: 650; font-size: 20px; letter-spacing: -0.01em; color: var(--accent); margin: 0; }
+
+/* How to run it */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1px; margin: 0; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; }
+.facts > div { background: var(--surface); padding: 14px 16px; display: grid; gap: 4px; min-width: 0; }
+.facts dt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.facts dd { margin: 0; font-weight: 600; font-size: 16px; line-height: 1.35; }
+.modes { display: grid; gap: 12px; }
+.modes__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; }
+.mode { border: 1px solid var(--line); border-radius: var(--radius); padding: 14px 16px; display: grid; gap: 6px; background: var(--surface); }
+.mode.is-fit { border-color: var(--accent); background: var(--accent-soft); }
+.mode p { margin: 0; }
+.mode__name { font-weight: 600; display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.mode__tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); border-radius: 4px; padding: 2px 6px; font-weight: 500; }
+.mode__when { font-size: 15px; color: var(--muted); }
+.interpret { border-top: 1px solid var(--line); padding-top: 18px; display: grid; gap: 12px; }
+.interpret__title { font-family: var(--font-display); font-weight: 650; font-size: 20px; letter-spacing: -0.01em; line-height: 1.25; }
+.saygrid, .qgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px 20px; }
+.saygrid > div, .qcol { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.say__label { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; margin: 0; }
+.say__label--yes { color: var(--accent); }
+.say__label--no { color: var(--muted); }
+.say { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; font-size: 15px; }
+.say li { padding-left: 14px; border-left: 2px solid var(--accent); }
+.say--no li { border-left-color: var(--line-strong); color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-strong); }
+.qlist { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.qcard { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-sm); padding: 12px 14px; font-size: 16px; line-height: 1.4; }
+.qcard--no { display: grid; gap: 4px; background: transparent; border-style: dashed; }
+.qcard__q { color: var(--muted); text-decoration: line-through; text-decoration-color: var(--line-strong); }
+.qcard__why { font-size: 14px; color: var(--fg); }
+.tips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.tips li { font-size: 14px; padding: 6px 12px; border-radius: 999px; background: var(--surface-2); }
+
+/* Intro: your question */
+.topic { display: grid; gap: 8px; max-width: 34em; }
+.topic__label { font-weight: 600; display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+.topic__opt { font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+.topic__input, .copy__manual textarea {
+  font: inherit; font-size: 17px; line-height: 1.45; color: var(--fg); width: 100%;
+  background: var(--surface); border: 1.5px solid var(--line); border-radius: var(--radius);
+  padding: 14px 16px; resize: vertical; transition: border-color .15s;
+}
+.topic__input::placeholder { color: var(--muted); opacity: .8; }
+.topic__input:hover { border-color: var(--line-strong); }
+.topic__input:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent) inset; }
+.topic__hint { margin: 0; font-size: 14px; color: var(--muted); }
+
+/* Result: question echo, glance, copy */
+.asked { display: grid; gap: 6px; padding: 14px 18px; border-left: 3px solid var(--accent); background: var(--surface); border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.asked__label { margin: 0; font-family: var(--font-mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.asked__text { margin: 0; font-family: var(--font-display); font-size: 20px; font-weight: 650; line-height: 1.3; letter-spacing: -0.01em; overflow-wrap: anywhere; }
+.glance { margin-top: 4px; }
+.reveal__actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 16px; }
+.reveal__actions > .note { flex: 1 1 240px; min-width: 0; }
+.copy { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; }
+.copy__status { font-size: 14px; color: var(--accent); }
+.copy__status:empty { display: none; }
+.copy__manual { flex-basis: 100%; display: grid; gap: 8px; }
+.copy__manual textarea { font-family: var(--font-mono); font-size: 13px; }
+
+/* Collapsible result sections */
+.rsec--fold { display: block; padding-block: 0; }
+.rsec__summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 200px minmax(0, 1fr); gap: 8px 32px; padding-block: 28px; }
+.rsec__summary::-webkit-details-marker { display: none; }
+.rsec__teaser { display: flex; justify-content: space-between; align-items: center; gap: 16px; font-weight: 600; min-width: 0; }
+.rsec__teaser > span:first-child { min-width: 0; }
+.rsec__toggle { flex: none; width: 32px; height: 32px; border: 1px solid var(--line-strong); border-radius: var(--radius-sm); position: relative; transition: background-color .15s, border-color .15s; }
+.rsec__toggle::before, .rsec__toggle::after { content: ""; position: absolute; left: 50%; top: 50%; width: 12px; height: 1.5px; background: var(--fg); transform: translate(-50%, -50%); transition: transform .2s var(--ease); }
+.rsec__toggle::after { transform: translate(-50%, -50%) rotate(90deg); }
+.rsec--fold[open] .rsec__toggle::after { transform: translate(-50%, -50%) rotate(0deg); }
+.rsec__summary:hover .rsec__toggle { border-color: var(--fg); }
+.rsec--fold .rsec__body { margin-left: 232px; padding-bottom: 28px; animation: stage-in .3s var(--ease) both; }
+@media (max-width: 640px) {
+  .rsec__summary { grid-template-columns: minmax(0,1fr); }
+  .rsec--fold .rsec__body { margin-left: 0; }
+}
+
+/* Trail: change an answer */
+.trail__side { display: flex; align-items: center; gap: 10px; align-self: start; }
+.trail__edit { font: inherit; font-size: 14px; font-weight: 600; color: var(--accent); background: none; border: 0; padding: 4px 2px; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.trail__edit:hover { text-decoration-thickness: 2px; }
+@media (max-width: 480px) { .trail__side { justify-self: start; } }
+
+.callout {
+  display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start;
+  padding: 20px 22px; border-radius: var(--radius); background: var(--surface-2);
+}
+.callout__mark { font-family: var(--font-display); font-size: 34px; line-height: .8; color: var(--accent); font-weight: 750; }
+.callout p { margin: 0; font-size: 16px; }
+
+.result__actions { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* How we got here */
+.trail { display: grid; gap: 16px; animation: stage-in .35s var(--ease) both; }
+.trail__head { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+.trail__head h3 { font-size: 24px; font-weight: 650; }
+.trail__list { list-style: none; margin: 0; padding: 0; display: grid; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+.trail__item { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; padding: 16px 20px; border-top: 1px solid var(--line); }
+.trail__item:first-child { border-top: 0; }
+.trail__q { font-size: 13px; color: var(--muted); margin: 0; }
+.trail__a { font-weight: 600; margin: 0; }
+.trail__why { grid-column: 1 / -1; font-size: 15px; color: var(--muted); margin: 0; }
+.chip {
+  align-self: start; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase;
+  padding: 4px 8px; border-radius: 4px; border: 1px solid var(--line); color: var(--muted); white-space: nowrap;
+}
+.chip--heavier { border-color: var(--fg); color: var(--fg); }
+.chip--lighter { border-color: var(--accent); color: var(--accent); }
+@media (max-width: 480px) { .trail__item { grid-template-columns: minmax(0,1fr); } .chip { justify-self: start; } }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-delay: 0ms !important; transition-duration: .001ms !important; }
+}
+</style>
+</head>
+<body>
+<div id="app"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/htm@3.1.1/dist/htm.umd.js"></script>
+<script>
+const { useState, useEffect, useRef, useMemo } = React;
+const html = htm.bind(React.createElement);
+
+/* =====================================================================
+   1. CONTENT: QUESTIONS
+   Edit headlines, copy and answer options here. `id` is the key used in
+   the rules below; `value` is what each rule checks against.
+   ===================================================================== */
+const QUESTIONS = [
+  {
+    id: "goal",
+    short: "What you're trying to learn",
+    headline: "What are you trying to learn?",
+    support: "Start with the question, not the research method.",
+    options: [
+      { value: "problem", title: "Understand the problem", description: "Who are we designing for? What are they doing today? What actually matters to them?" },
+      { value: "concept", title: "Explore or compare ideas", description: "We have a few directions and want to understand how people react to them." },
+      { value: "usability", title: "See if a design works", description: "Can users understand it, navigate it and complete the task?" },
+      { value: "language", title: "Check language, labels or comprehension", description: "Does this terminology, content or information make sense?" },
+      { value: "behavior", title: "Understand what users are doing in the live product", description: "We need evidence about actual behavior, adoption or friction." },
+    ],
+  },
+  {
+    id: "risk",
+    short: "How big the decision is",
+    headline: "How big is the decision?",
+    support: "Think about the consequences if we get it wrong.",
+    options: [
+      { value: "low", title: "Pretty contained", description: "A screen, interaction, pattern, workflow improvement, label, etc." },
+      { value: "medium", title: "Meaningful, but reversible", description: "It affects a larger workflow or several parts of the experience." },
+      { value: "high", title: "Big bet", description: "Product direction, major investment, new audience or something expensive to get wrong." },
+    ],
+  },
+  {
+    id: "audience",
+    short: "How well we know these users",
+    headline: "How well do we understand these users?",
+    support: null,
+    options: [
+      { value: "known", title: "Very well", description: "This is an established audience and we already have meaningful research about them." },
+      { value: "some", title: "Somewhat", description: "We know them, but there are meaningful gaps." },
+      { value: "new", title: "Not very well", description: "This is a new, unfamiliar or highly specialized audience." },
+    ],
+  },
+  {
+    id: "evidence",
+    short: "Existing evidence",
+    headline: "Do we already have evidence that might answer this?",
+    support: "Research, analytics, customer feedback and support data all count.",
+    options: [
+      { value: "yes", title: "Yes", description: "We have relevant evidence that may already answer the question." },
+      { value: "maybe", title: "Maybe?", description: "I honestly haven’t checked yet." },
+      { value: "no", title: "No", description: "What we have doesn’t answer this question." },
+    ],
+  },
+  {
+    id: "recruiting",
+    short: "Getting the right users",
+    headline: "How hard is it to get the right users?",
+    support: null,
+    options: [
+      { value: "easy", title: "Pretty easy", description: "We can reach them through our normal recruiting channels." },
+      { value: "some", title: "A little tricky", description: "They need specific experience, roles or screening." },
+      { value: "hard", title: "Hard", description: "They’re highly specialized, sensitive or difficult to access." },
+    ],
+  },
+  {
+    id: "need",
+    short: "What you need from it",
+    headline: "What do you actually need from this research?",
+    support: null,
+    options: [
+      { value: "directional", title: "Directional confidence", description: "I need enough evidence to make a design decision and keep moving." },
+      { value: "organizational", title: "Evidence other people will use to make a larger decision", description: "This may influence roadmap, investment, strategy or leadership decisions." },
+      { value: "unclear", title: "I’m not totally sure yet", description: "I know we need to learn something, but the research question is still fuzzy." },
+    ],
+  },
+];
+
+/* =====================================================================
+   2. CONTENT: METHODS (picked from the answer to "What are you trying to learn?")
+   ===================================================================== */
+const METHODS = {
+  usability: {
+    name: "Usability testing",
+    description: "Give users realistic tasks and watch what they do. Behavior matters more than whether they say they like it.",
+    participants: "5–8 representative participants",
+    watchOut: "Don’t turn a small usability study into proof that ‘users want this.’ It tells you whether this experience works for the people you tested.",
+  },
+  concept: {
+    name: "Concept testing",
+    description: "Put clearly different approaches in front of users and understand how they interpret them, what they expect and where each direction succeeds or breaks down.",
+    participants: "5–8 participants for qualitative feedback",
+    watchOut: "Don’t reduce concept testing to a popularity contest. Understand why people respond differently.",
+  },
+  language: {
+    name: "Comprehension testing",
+    description: "Show the language in context and ask users what they think it means before explaining anything.",
+    participants: "5–8 representative participants",
+    watchOut: "Preference and comprehension are different questions. Something can sound nicer and still be less clear.",
+  },
+  behavior: {
+    name: "Analytics first, then targeted qualitative research",
+    description: "Start with what people actually do in the product. Talk to users afterward if you need to understand why.",
+    participants: null, // depends on the data, not a headcount
+    watchOut: "Self-reported behavior is not the same thing as actual behavior.",
+  },
+  problem: {
+    name: "Lightweight customer interviews",
+    description: "Talk to people about what they actually did recently, in their own words. Ask about real situations, not hypothetical features.",
+    participants: "5–8 people per distinct user group",
+    watchOut: "Don’t ask people to design the solution or predict what they’d do. Past behavior tells you more than future promises.",
+  },
+};
+
+/* =====================================================================
+   2b. CONTENT: HOW TO RUN IT (tool guidance, keyed by goal)
+   Maze is the tool, not the method. `fit` controls what's shown:
+   - "maze":     Maze is a good primary fit for this method
+   - "followup": start somewhere else, use Maze to follow up
+   - "direct":   talk to people directly; Maze isn't the primary tool
+   `mode`: which kind of Maze study usually fits best.
+   ===================================================================== */
+const HOW_TO_RUN = {
+  usability: {
+    fit: "maze",
+    headline: "Run an unmoderated usability study in Maze.",
+    methodName: "Unmoderated usability testing",
+    tool: "Maze",
+    supporting: "Give participants realistic tasks and let them work through the experience without guidance. Pay attention to completion, misclicks, paths taken and where participants hesitate or fail.",
+    participants: "Start with roughly 5–8 representative participants for a qualitative usability check.",
+    lookAt: ["Task success", "Paths taken", "Misclicks", "Where participants abandon or hesitate", "Open-ended explanations", "Patterns across participants"],
+    mode: "unmoderated",
+    watchOut: "Because you’re not there to ask follow-up questions, make sure your tasks are clear and neutral. Don’t explain how the interface works inside the task.",
+  },
+  concept: {
+    fit: "maze",
+    headline: "Run an unmoderated concept study in Maze.",
+    methodName: "Unmoderated concept testing",
+    tool: "Maze",
+    supporting: "Show participants the concept in context, ask what they think it does or means, and then ask targeted follow-up questions.",
+    participants: "Start with roughly 5–8 participants per concept for qualitative feedback.",
+    lookAt: ["How participants describe what each concept does", "Where expectations differ from what you intended", "Comprehension problems in each direction", "The reasons behind any preference", "Patterns across participants"],
+    mode: "either",
+    preferenceNote: "Preference can be useful as supporting evidence, but it usually shouldn’t be the only thing driving the decision.",
+    watchOut: "Don’t turn concept testing into ‘Which one do you like better?’ Preference alone usually isn’t enough to make a design decision.",
+  },
+  language: {
+    fit: "maze",
+    headline: "Run a comprehension study in Maze.",
+    methodName: "Unmoderated comprehension testing",
+    tool: "Maze",
+    supporting: "Show the language in context and ask participants what they think it means before giving them possible answers or explanations.",
+    participants: "Start with roughly 5–8 representative participants.",
+    lookAt: ["Participants’ own descriptions of what the language means", "Where interpretations differ from what you intended", "Hesitation or confusion before answering", "Patterns across participants"],
+    mode: "unmoderated",
+    watchOut: "Don’t accidentally teach participants the meaning before asking whether they understand it.",
+  },
+  behavior: {
+    fit: "followup",
+    headline: "Start in your analytics. Use Maze to understand why.",
+    methodName: "Analytics, then a targeted follow-up",
+    tool: "Product analytics, then Maze",
+    supporting: "Find where the drop-off or friction happens first. Then use a short Maze survey or AI-moderated interviews with people who hit that point to understand why.",
+    participants: null,
+    lookAt: ["Where people drop off or repeat steps", "Who hits the friction and who doesn’t", "The reasons people give, checked against what the data shows"],
+    mode: "ai",
+    watchOut: "Surveys tell us what people say. They are usually weaker evidence for understanding what people actually do.",
+  },
+  problem: {
+    fit: "direct",
+    headline: "Talk to users directly.",
+    methodName: "Moderated interviews",
+    tool: "A live conversation, run by you",
+    supporting: "Understanding how people work, what they need and why takes follow-up questions, where each answer shapes the next one. That’s hard to do without a person in the conversation.",
+    participants: "Start with roughly 5–8 people per distinct user group.",
+    lookAt: ["What people actually did, in their own words", "Workarounds and the moments that frustrate them", "What they care about and why"],
+    mode: null,
+    aiNote: "AI-moderated interviews in Maze can help with narrow follow-up questions for an audience you already know well. For discovery work, talk to people yourself.",
+    watchOut: null,
+  },
+};
+
+const STUDY_MODES = {
+  unmoderated: { name: "Unmoderated", when: "Your tasks and questions can stand on their own. Best for watching what people do." },
+  ai: { name: "AI-moderated", when: "You need follow-up “why” questions, and the topic isn’t sensitive. Best for understanding the reasoning behind a reaction." },
+};
+const MODE_PICK = {
+  unmoderated: "Unmoderated usually fits best here.",
+  either: "Either can work. Choose AI-moderated if you want to probe why people react the way they do.",
+  ai: "AI-moderated usually fits best for the follow-up.",
+};
+
+const INTERPRETATION = {
+  title: "Maze gives you data. You still have to interpret it.",
+  body: "Don’t treat completion rate, heatmaps or preference percentages as findings on their own. Look across the behavioral data and participant comments to understand what is actually happening.",
+  say: [
+    "Participants consistently understood this approach more quickly.",
+    "Most failures occurred at the same point in the workflow.",
+    "Participants interpreted this label differently than intended.",
+    "Concept A created fewer comprehension problems, although preference was mixed.",
+  ],
+  avoid: [
+    "80% preferred Concept A, so we’ll use Concept A.",
+    "90% completed the task, so the experience is validated.",
+    "Users liked it, so we should build it.",
+  ],
+};
+
+const QUANT_CAVEAT = "These counts are a starting point, not a rule. If you need to make a quantitative claim about how common something is, talk with UXR about sample size and study design.";
+
+/* =====================================================================
+   2c. CONTENT: SAMPLE QUESTIONS (keyed by goal)
+   `try`: good examples. `avoid`: common mistakes, with the reason.
+   ===================================================================== */
+const QUESTION_TIPS = [
+  "Ask about what people did, not what they would do.",
+  "Ask open questions before you offer choices.",
+  "Ask about one thing at a time.",
+];
+
+const SAMPLE_QUESTIONS = {
+  usability: {
+    try: [
+      "You need to add a teammate to this project. Show how you’d do that.",
+      "What did you expect to happen when you selected that?",
+      "What, if anything, slowed you down?",
+    ],
+    avoid: [
+      { q: "Click Share to invite a teammate.", why: "It tells them where to go, so you can’t see if they’d find it." },
+      { q: "Was that easy?", why: "Yes-or-no questions invite polite answers. Watch what they did instead." },
+    ],
+  },
+  concept: {
+    try: [
+      "Looking at this, what do you think it does?",
+      "Who do you think this is for?",
+      "What would you expect to happen next?",
+      "If you had to pick one for [task], which would you choose? Why?",
+      "What made the other option less clear or useful?",
+    ],
+    avoid: [
+      { q: "Which one do you like better?", why: "On its own, a vote tells you nothing about why. Pair it with what they expected and why." },
+      { q: "Would you use this?", why: "People are bad at predicting their own behavior." },
+    ],
+  },
+  language: {
+    try: [
+      "What do you think “[label]” means here?",
+      "What would you expect to find if you selected this?",
+      "In your own words, what is this message asking you to do?",
+    ],
+    avoid: [
+      { q: "Does “[label]” make sense?", why: "Most people say yes, even when they’ve misread it." },
+      { q: "Multiple choice before an open question", why: "The options teach them the answer.", notAQuote: true },
+    ],
+  },
+  behavior: {
+    try: [
+      "Think about the last time you [did the task]. What happened?",
+      "What did you do instead?",
+      "What made you stop partway through?",
+    ],
+    avoid: [
+      { q: "Would you use this more if it were faster?", why: "Hypotheticals get hopeful answers, not real ones." },
+      { q: "Do you find this feature useful?", why: "Too broad, and it tells you less than your usage data already does." },
+    ],
+  },
+  problem: {
+    try: [
+      "Walk me through the last time you [did the job].",
+      "What was the hardest part?",
+      "What did you do when that happened?",
+      "Why did that matter to you?",
+    ],
+    avoid: [
+      { q: "Would you want a feature that…?", why: "It pitches a solution before you understand the problem." },
+      { q: "What would your ideal tool look like?", why: "People are experts in their problems, not in designing solutions." },
+    ],
+  },
+};
+
+/* =====================================================================
+   3. CONTENT: ROUTES (the four results)
+   ===================================================================== */
+const ROUTES = {
+  existing: {
+    scaleLabel: "Use what we already know",
+    headline: "You may not need a new study.",
+    summary: "Before asking users another question, look at the research, analytics, customer feedback and adjacent product work we already have. If the evidence answers your question well enough to make the decision, use it.",
+    extra: null,
+    showsMethod: false,
+    approach: {
+      name: "Start with existing research and data.",
+      description: "Pull together what’s already been learned about this question, and read it with your specific decision in mind.",
+    },
+    nextSteps: [
+      "Search past research for this workflow, feature or audience.",
+      "Check the analytics for the part of the product you’re changing.",
+      "Skim recent support tickets and customer feedback for the same friction.",
+      "Ask adjacent teams what they’ve already learned.",
+    ],
+    bringResearch: null,
+    note: "If you still have an unanswered question after reviewing it, come back and choose the research approach for that specific gap.",
+    cta: null,
+    watchOut: [
+      "Make sure the evidence is about the same users and the same context. Findings about a different audience can point you the wrong way.",
+      "Don’t stretch a finding to cover a question it wasn’t designed to answer.",
+    ],
+  },
+  diy: {
+    scaleLabel: "DIY study",
+    headline: "You’ve got a DIY research study.",
+    summary: "This is a focused question, the consequences of getting it wrong are manageable, and you know enough about the audience to run a lightweight study yourself.",
+    extra: null,
+    showsMethod: true,
+    methodLabel: "Recommended method",
+    nextSteps: [
+      "Write down, in one sentence, the decision this study will inform.",
+      "Recruit people who match who you’re actually designing for.",
+      "Bring a teammate to take notes so you can focus on the participant.",
+      "Share what you saw and what you’re changing. A short write-up beats a long deck.",
+    ],
+    bringResearch: null,
+    note: "If something surprising comes up, Research is happy to help you make sense of it.",
+    cta: null,
+    watchOut: [],
+  },
+  gutCheck: {
+    scaleLabel: "DIY + UXR gut check",
+    headline: "DIY it — but grab a quick UXR gut check first.",
+    summary: "You can probably own this study. There are just enough unknowns that 15–20 minutes with Research up front could save you from answering the wrong question or recruiting the wrong people.",
+    extra: null,
+    showsMethod: true,
+    methodLabel: "Likely method",
+    nextSteps: [
+      "Book 15–20 minutes with Research.",
+      "Agree on the question, the method and who to recruit.",
+      "Run the study yourself.",
+    ],
+    bringResearch: [
+      "The decision you need to make",
+      "What you already know",
+      "Who you think you need to talk to",
+      "The assumptions you’re trying to reduce",
+    ],
+    note: "You do not need to write a full research plan before talking to Research.",
+    cta: null,
+    watchOut: [],
+  },
+  partner: {
+    scaleLabel: "Partner with UXR",
+    headline: "This one deserves a UXR partner.",
+    summary: "The question or decision is big enough that the research needs more rigor than a lightweight DIY study.",
+    extra: "That doesn’t mean handing the work over. Design should still be deeply involved. Research can help shape the approach, recruiting and analysis so we’re confident the evidence supports the decision we’re making.",
+    showsMethod: true,
+    methodLabel: "Likely starting point",
+    methodNote: "Research will help confirm the approach. It may need more than one method, and some parts may still run in Maze.",
+    participantsOverride: "Research will help size this. The right people matter more than more people.",
+    nextSteps: [
+      "Reach out to Research as early as you can, before you pick a method.",
+      "Shape the approach together, then stay in the sessions and the analysis.",
+    ],
+    bringResearch: [
+      "What decision needs to be made",
+      "What triggered the question",
+      "What we already know",
+      "What we are currently assuming",
+      "When the team needs an answer",
+    ],
+    note: null,
+    cta: "Start with the question, not a finished research plan.",
+    watchOut: [
+      "A handful of sessions won’t carry a roadmap decision on its own. Plan for the level of evidence the decision actually needs.",
+    ],
+  },
+};
+
+const INTRO_PROMPT = {
+  label: "What are you trying to find out?",
+  placeholder: "e.g. Can admins find where to set up approval rules?",
+  hint: "One sentence is plenty. It shows up on your result and in the summary you can share.",
+};
+
+const COPY_TEXT = {
+  copied: "Copied. Paste it into Slack, a ticket or your notes.",
+  manual: "Your browser blocked copying. Select the text below and copy it.",
+  hint: "A short summary of your route and answers, ready to paste anywhere.",
+  hintResearch: "A ready-to-paste note for Research, with your answers and space for the details they’ll ask about.",
+};
+
+// Order on the rigor scale shown in the intro and on the result.
+const ROUTE_ORDER = ["existing", "diy", "gutCheck", "partner"];
+
+const FOOTER_CALLOUT = "Remember: the goal isn’t to prove the design is right. It’s to reduce enough uncertainty to make a better decision.";
+
+const EVIDENCE_CHECK = {
+  headline: "Hang on. Have we checked what we already know?",
+  body: "Before launching another study, take a quick look at existing research, analytics, customer feedback, support data and adjacent product work.",
+  places: ["Past research", "Analytics", "Customer feedback", "Support data", "Adjacent product work"],
+  checked: "I checked. We still need research",
+  startThere: "Good point. I’ll start there.",
+};
+
+/* =====================================================================
+   4. RULES
+   Evaluated top to bottom. The first route whose conditions match wins.
+   - existing: ALL conditions must match
+   - partner, gutCheck: ANY condition matches
+   - diy: the default when nothing above matched
+   Each condition's `reason` appears under "Why you got this result".
+   ===================================================================== */
+const RULES = {
+  existing: {
+    match: "all",
+    conditions: [
+      { test: a => a.evidence === "yes", reason: "You already have evidence that may answer this." },
+      { test: a => a.risk !== "high", reason: "The decision is contained or reversible, so existing evidence can carry it." },
+    ],
+  },
+  partner: {
+    match: "any",
+    conditions: [
+      { test: a => a.risk === "high", reason: "It’s a big bet. When getting it wrong is expensive, the evidence has to hold up." },
+      { test: a => a.need === "organizational", reason: "Other people will use this evidence to make a larger decision, so it needs to stand up to scrutiny." },
+      { test: a => a.recruiting === "hard", reason: "The right participants are hard to reach. Research can help with screening and access." },
+      { test: a => a.goal === "problem" && a.audience === "new", reason: "You’re trying to understand the problem for an audience we don’t know well. That’s foundational work." },
+      { test: a => a.audience === "new" && a.risk === "medium", reason: "A new audience plus a meaningful decision adds up to more uncertainty than a lightweight study handles well." },
+    ],
+  },
+  gutCheck: {
+    match: "any",
+    conditions: [
+      { test: a => a.need === "unclear", reason: "The research question is still fuzzy. Sharpen it with Research before choosing a method." },
+      { test: a => a.goal === "problem", reason: "Problem research is easy to aim at the wrong question. A quick conversation helps you frame it." },
+      { test: a => a.risk === "medium", reason: "The decision is meaningful, even if it’s reversible." },
+      { test: a => a.audience === "some", reason: "There are gaps in what we know about these users." },
+      { test: a => a.audience === "new", reason: "This is an unfamiliar audience, so recruiting the right people matters more." },
+      { test: a => a.recruiting === "some", reason: "Finding the right participants takes some screening." },
+    ],
+  },
+  diy: {
+    match: "default",
+    conditions: [
+      { test: a => a.risk === "low", reason: "The decision is contained, so a lightweight study is the right size." },
+      { test: a => a.audience === "known", reason: "You know this audience well." },
+      { test: a => a.recruiting === "easy", reason: "You can reach the right people through normal channels." },
+      { test: a => a.need === "directional", reason: "You need directional confidence to keep moving, not proof." },
+      { test: a => a.evidence === "no", reason: "What we already have doesn’t answer this." },
+    ],
+  },
+};
+
+const CONTEXT_REASONS = {
+  startThere: "You chose to review existing research and data before starting anything new.",
+  checked: "You checked existing evidence and still have an open question.",
+};
+
+/* =====================================================================
+   5. "SEE HOW WE GOT HERE": how each answer pulls the recommendation.
+   effect: "lighter" | "heavier" | "neutral"
+   ===================================================================== */
+const FACTORS = {
+  goal: {
+    problem:   { effect: "heavier", note: "Problem framing is foundational, so it usually benefits from Research’s input." },
+    concept:   { effect: "neutral", note: "Sets the method: concept testing." },
+    usability: { effect: "neutral", note: "Sets the method: usability testing." },
+    language:  { effect: "neutral", note: "Sets the method: comprehension testing." },
+    behavior:  { effect: "neutral", note: "Sets the method: start with analytics, then talk to people." },
+  },
+  risk: {
+    low:    { effect: "lighter", note: "Decision risk matters more than how polished the design is. Contained decisions suit lightweight research." },
+    medium: { effect: "heavier", note: "A meaningful decision adds a reason to check your approach with Research." },
+    high:   { effect: "heavier", note: "Big bets need evidence that holds up, however rough or polished the design is." },
+  },
+  audience: {
+    known: { effect: "lighter", note: "Knowing the audience makes recruiting and interpreting results easier." },
+    some:  { effect: "heavier", note: "Gaps in what we know make it easier to talk to the wrong people." },
+    new:   { effect: "heavier", note: "Unfamiliar audiences add uncertainty to who to recruit and how to read what they say." },
+  },
+  evidence: {
+    yes:   { effect: "lighter", note: "Existing evidence comes before new research." },
+    maybe: { effect: "neutral", note: "Worth a look before starting something new." },
+    no:    { effect: "neutral", note: "Nothing to reuse, so new research makes sense." },
+  },
+  recruiting: {
+    easy: { effect: "lighter", note: "Normal channels make a DIY study practical." },
+    some: { effect: "heavier", note: "Screening is where small studies most often go wrong." },
+    hard: { effect: "heavier", note: "Specialized or sensitive participants need careful recruiting." },
+  },
+  need: {
+    directional:    { effect: "lighter", note: "Use the simplest method that can answer the question." },
+    organizational: { effect: "heavier", note: "Small qualitative studies aren’t statistically representative. Bigger decisions need evidence built for them." },
+    unclear:        { effect: "heavier", note: "If the question is unclear, talk with Research before choosing a method." },
+  },
+};
+
+const EFFECT_LABELS = { lighter: "Kept it light", heavier: "Added rigor", neutral: "Shaped the method" };
+
+/* =====================================================================
+   6. DECISION ENGINE
+   ===================================================================== */
+function evaluate(answers, evidenceCheck) {
+  const ctx = [];
+  if (evidenceCheck === "startThere") {
+    return { route: "existing", reasons: [CONTEXT_REASONS.startThere], method: null };
+  }
+  if (evidenceCheck === "checked") ctx.push(CONTEXT_REASONS.checked);
+
+  for (const route of ["existing", "partner", "gutCheck"]) {
+    const rule = RULES[route];
+    const matched = rule.conditions.filter(c => c.test(answers));
+    const hit = rule.match === "all" ? matched.length === rule.conditions.length : matched.length > 0;
+    if (hit) {
+      return { route, reasons: [...matched.map(c => c.reason), ...ctx], method: ROUTES[route].showsMethod ? METHODS[answers.goal] : null };
+    }
+  }
+  const supporting = RULES.diy.conditions.filter(c => c.test(answers)).map(c => c.reason);
+  return { route: "diy", reasons: [...supporting, ...ctx], method: METHODS[answers.goal] };
+}
+
+// "How to run it" and sample questions appear on routes the designer runs themselves.
+function showsHowToRun(result) {
+  return result.route === "diy" || result.route === "gutCheck";
+}
+
+function watchOutFor(result, answers) {
+  const route = ROUTES[result.route];
+  const items = [];
+  if (result.method) items.push(result.method.watchOut);
+  const run = showsHowToRun(result) ? HOW_TO_RUN[answers.goal] : null;
+  if (run && run.watchOut) items.push(run.watchOut);
+  if (result.route === "gutCheck" && answers.need === "unclear") {
+    items.push("Pin down the question before picking a method. A sharp question makes even a small study useful.");
+  }
+  return [...items, ...route.watchOut];
+}
+
+/* =====================================================================
+   7. COMPONENTS
+   ===================================================================== */
+function Button({ variant = "primary", children, ...rest }) {
+  return html`<button type="button" className=${"btn btn--" + variant} ...${rest}>${children}</button>`;
+}
+const Arrow = ({ back }) => html`<span className="arrow" aria-hidden="true">${back ? "←" : "→"}</span>`;
+
+function Progress({ current, total }) {
+  return html`
+    <div className="progress">
+      <p className="progress__label">Question <strong>${current}</strong> of ${total}</p>
+      <div className="progress__track" role="progressbar" aria-valuemin="1" aria-valuemax=${total} aria-valuenow=${current} aria-label=${`Question ${current} of ${total}`}>
+        ${Array.from({ length: total }, (_, i) => html`
+          <span key=${i} className=${"progress__seg" + (i + 1 < current ? " is-done" : i + 1 === current ? " is-current" : "")}></span>`)}
+      </div>
+    </div>`;
+}
+
+function AnswerCard({ name, option, letter, checked, onSelect }) {
+  const id = `${name}-${option.value}`;
+  return html`
+    <div className="answer">
+      <input type="radio" id=${id} name=${name} value=${option.value} checked=${checked} onChange=${() => onSelect(option.value)} />
+      <label className="answer__card" htmlFor=${id}>
+        <span className="answer__key" aria-hidden="true">${letter}</span>
+        <span className="answer__title">${option.title}</span>
+        <span className="answer__check" aria-hidden="true">
+          <svg viewBox="0 0 12 12" fill="none"><path d="M2.5 6.2l2.3 2.3 4.7-5" stroke="var(--accent-ink)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span className="answer__desc">${option.description}</span>
+      </label>
+    </div>`;
+}
+
+function Question({ question, index, total, value, returning, onChange, onBack, onNext }) {
+  const headRef = useRef(null);
+  useEffect(() => { headRef.current && headRef.current.focus({ preventScroll: true }); }, [question.id]);
+
+  // Letter keys select an answer (A, B, C…)
+  useEffect(() => {
+    const onKey = e => {
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+      const tag = (e.target.tagName || "").toLowerCase();
+      if (tag === "textarea" || (tag === "input" && e.target.type === "text")) return;
+      const i = e.key.toUpperCase().charCodeAt(0) - 65;
+      if (e.key.length === 1 && i >= 0 && i < question.options.length) {
+        onChange(question.options[i].value);
+      }
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [question, onChange]);
+
+  const submit = e => { e.preventDefault(); if (value) onNext(); };
+
+  return html`
+    <form className="question" onSubmit=${submit} noValidate>
+      <${Progress} current=${index + 1} total=${total} />
+      <div className="question__head">
+        <h2 className="headline" ref=${headRef} tabIndex="-1" id=${"q-" + question.id}>${question.headline}</h2>
+        ${question.support && html`<p className="support">${question.support}</p>`}
+      </div>
+      <fieldset className="answers" aria-labelledby=${"q-" + question.id}>
+        ${question.options.map((opt, i) => html`
+          <${AnswerCard} key=${opt.value} name=${question.id} option=${opt}
+            letter=${String.fromCharCode(65 + i)} checked=${value === opt.value} onSelect=${onChange} />`)}
+      </fieldset>
+      <div className="navrow">
+        <${Button} variant="ghost" onClick=${onBack}><${Arrow} back /> ${returning ? "Back to my result" : "Back"}</${Button}>
+        <span className="navrow__hint">Press ${String.fromCharCode(65)}–${String.fromCharCode(64 + question.options.length)} to choose, Enter to continue</span>
+        <button type="submit" className="btn btn--primary" disabled=${!value}>
+          ${returning ? "Update my result" : index + 1 === total ? "See my result" : "Continue"} <${Arrow} />
+        </button>
+      </div>
+    </form>`;
+}
+
+function RouteScale({ active, variant }) {
+  return html`
+    <div className=${"scale" + (variant ? " scale--" + variant : "")}>
+      <ol className="scale__track" aria-label="Research routes, from lightest to most rigor">
+        ${ROUTE_ORDER.map(key => html`
+          <li key=${key} className=${"scale__stop" + (key === active ? " is-active" : "")} aria-current=${key === active ? "step" : undefined}>
+            <span className="scale__bar"></span>
+            <span className="scale__name">${ROUTES[key].scaleLabel}</span>
+          </li>`)}
+      </ol>
+      <div className="scale__ends" aria-hidden="true"><span>Lighter</span><span>More rigor</span></div>
+    </div>`;
+}
+
+function Intro({ topic, onTopic, onStart }) {
+  return html`
+    <section className="intro">
+      <h1 className="display">What kind of research should I do?</h1>
+      <p className="lede">You have a question. Let’s figure out the easiest way to answer it.</p>
+      <p className="intro__note">This isn’t about getting permission to do research. It’s about using the right amount of rigor for the decision you’re making.</p>
+      <div className="topic">
+        <label htmlFor="topic" className="topic__label">${INTRO_PROMPT.label} <span className="topic__opt">Optional</span></label>
+        <textarea id="topic" className="topic__input" rows="2" maxLength="280"
+          placeholder=${INTRO_PROMPT.placeholder} value=${topic}
+          onChange=${e => onTopic(e.target.value)}
+          onKeyDown=${e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); onStart(); } }}></textarea>
+        <p className="topic__hint">${INTRO_PROMPT.hint}</p>
+      </div>
+      <div className="intro__actions">
+        <${Button} onClick=${onStart}>Find my research approach <${Arrow} /></${Button}>
+        <span className="intro__time">${QUESTIONS.length} questions · About 2 minutes</span>
+      </div>
+      <div className="landings">
+        <p className="landings__label">Where you might land</p>
+        <${RouteScale} />
+      </div>
+    </section>`;
+}
+
+function EvidenceCheck({ onChecked, onStartThere, onBack }) {
+  const headRef = useRef(null);
+  useEffect(() => { headRef.current && headRef.current.focus({ preventScroll: true }); }, []);
+  return html`
+    <section className="pause">
+      <p className="eyebrow">Quick check</p>
+      <h2 className="headline" ref=${headRef} tabIndex="-1">${EVIDENCE_CHECK.headline}</h2>
+      <p className="lede">${EVIDENCE_CHECK.body}</p>
+      <ul className="pause__list" aria-label="Places to look">
+        ${EVIDENCE_CHECK.places.map(p => html`<li key=${p}>${p}</li>`)}
+      </ul>
+      <div className="pause__actions">
+        <${Button} onClick=${onChecked}>${EVIDENCE_CHECK.checked} <${Arrow} /></${Button}>
+        <${Button} variant="secondary" onClick=${onStartThere}>${EVIDENCE_CHECK.startThere}</${Button}>
+      </div>
+      <div><${Button} variant="ghost" onClick=${onBack}><${Arrow} back /> Back to the questions</${Button}></div>
+    </section>`;
+}
+
+function ResultSection({ title, children, collapsible, teaser }) {
+  if (collapsible) {
+    return html`
+      <details className="rsec rsec--fold">
+        <summary className="rsec__summary">
+          <h3 className="rsec__title">${title}</h3>
+          <span className="rsec__teaser">
+            <span>${teaser}</span>
+            <span className="rsec__toggle" aria-hidden="true"></span>
+          </span>
+        </summary>
+        <div className="rsec__body">${children}</div>
+      </details>`;
+  }
+  return html`
+    <section className="rsec">
+      <h3 className="rsec__title">${title}</h3>
+      <div className="rsec__body">${children}</div>
+    </section>`;
+}
+
+function HowToRun({ run, answers, route }) {
+  const recruitNote = route === "gutCheck" && (answers.recruiting === "some" || answers.audience === "new");
+  return html`
+    <dl className="facts">
+      <div><dt>Method</dt><dd>${run.methodName}</dd></div>
+      <div><dt>Tool</dt><dd>${run.tool}</dd></div>
+      ${run.participants && html`<div><dt>Starting point</dt><dd>${run.participants}</dd></div>`}
+    </dl>
+    <p className="method__name">${run.headline}</p>
+    <p>${run.supporting}</p>
+    ${run.aiNote && html`<p className="note">${run.aiNote}</p>`}
+
+    ${run.mode && html`
+      <div className="modes">
+        <p className="bring__title">Unmoderated or AI-moderated?</p>
+        <div className="modes__grid">
+          ${Object.entries(STUDY_MODES).map(([key, m]) => {
+            const fits = run.mode === key || run.mode === "either";
+            return html`
+              <div key=${key} className=${"mode" + (fits ? " is-fit" : "")}>
+                <p className="mode__name">${m.name}${fits && html` <span className="mode__tag">Good fit</span>`}</p>
+                <p className="mode__when">${m.when}</p>
+              </div>`;
+          })}
+        </div>
+        <p className="note">${MODE_PICK[run.mode]}</p>
+      </div>`}
+
+    ${recruitNote && html`<p className="note"><strong>Check recruiting with Research.</strong> Ask whether your usual Maze recruiting can reach the people you need, or whether you’ll need screening.</p>`}
+
+    <div>
+      <p className="bring__title">What to look at</p>
+      <ul className="list">${run.lookAt.map(l => html`<li key=${l}>${l}</li>`)}</ul>
+    </div>
+
+    ${run.preferenceNote && html`<p className="note"><strong>About preference.</strong> ${run.preferenceNote}</p>`}
+
+    ${run.fit !== "direct" && html`
+      <div className="interpret">
+        <p className="interpret__title">${INTERPRETATION.title}</p>
+        <p className="note">${INTERPRETATION.body}</p>
+        <div className="saygrid">
+          <div>
+            <p className="say__label say__label--yes">Conclusions like this</p>
+            <ul className="say">${INTERPRETATION.say.map(s => html`<li key=${s}>${s}</li>`)}</ul>
+          </div>
+          <div>
+            <p className="say__label say__label--no">Not like this</p>
+            <ul className="say say--no">${INTERPRETATION.avoid.map(s => html`<li key=${s}>${s}</li>`)}</ul>
+          </div>
+        </div>
+      </div>`}
+    ${run.participants && html`<p className="note">${QUANT_CAVEAT}</p>`}
+  `;
+}
+
+function SampleQuestions({ set }) {
+  return html`
+    <p className="note">Swap the bracketed parts for your own product. These work in Maze, in an interview guide or as a starting point with Research.</p>
+    <div className="qgrid">
+      <div className="qcol">
+        <p className="say__label say__label--yes">Try</p>
+        <ul className="qlist">${set.try.map(q => html`<li key=${q} className="qcard">“${q}”</li>`)}</ul>
+      </div>
+      <div className="qcol">
+        <p className="say__label say__label--no">Avoid</p>
+        <ul className="qlist">${set.avoid.map(a => html`
+          <li key=${a.q} className="qcard qcard--no">
+            <span className="qcard__q">${a.notAQuote ? a.q : "“" + a.q + "”"}</span>
+            <span className="qcard__why">${a.why}</span>
+          </li>`)}</ul>
+      </div>
+    </div>
+    <ul className="tips" aria-label="Question-writing tips">${QUESTION_TIPS.map(t => html`<li key=${t}>${t}</li>`)}</ul>
+  `;
+}
+
+function buildSummary({ topic, answers, result, evidenceCheck }) {
+  const route = ROUTES[result.route];
+  const run = showsHowToRun(result) ? HOW_TO_RUN[answers.goal] : null;
+  const lines = [];
+  lines.push(`Research route: ${route.scaleLabel}`);
+  if (topic) lines.push(`Question: ${topic}`);
+  lines.push("");
+  if (result.method) lines.push(`Method: ${result.method.name}`);
+  else lines.push(`Approach: ${route.approach.name}`);
+  if (run) lines.push(`How to run it: ${run.methodName} (${run.tool})`);
+  const people = run && run.participants ? run.participants : (result.method && result.method.participants);
+  if (people && result.route !== "partner") lines.push(`Starting point: ${people}`);
+  lines.push("");
+  lines.push("My answers:");
+  QUESTIONS.forEach(q => {
+    const opt = q.options.find(o => o.value === answers[q.id]);
+    let a = opt ? opt.title : "—";
+    if (q.id === "evidence" && evidenceCheck === "checked") a += " (checked, still need research)";
+    if (q.id === "evidence" && evidenceCheck === "startThere") a += " (reviewing existing evidence first)";
+    lines.push(`- ${q.short}: ${a}`);
+  });
+  lines.push("");
+  lines.push("Why this route:");
+  result.reasons.forEach(r => lines.push(`- ${r}`));
+  if (route.bringResearch) {
+    lines.push("");
+    lines.push("For Research:");
+    route.bringResearch.forEach(b => lines.push(`- ${b}: `));
+  }
+  return lines.join("\n");
+}
+
+function CopySummary({ text, variant = "secondary" }) {
+  const [status, setStatus] = useState("idle"); // idle | copied | manual
+  const areaRef = useRef(null);
+  useEffect(() => {
+    if (status === "manual" && areaRef.current) { areaRef.current.focus(); areaRef.current.select(); }
+    if (status === "copied") { const t = setTimeout(() => setStatus("idle"), 4000); return () => clearTimeout(t); }
+  }, [status]);
+  const copy = () => {
+    try {
+      const p = navigator.clipboard && navigator.clipboard.writeText(text);
+      if (!p) return setStatus("manual");
+      p.then(() => setStatus("copied"), () => setStatus("manual"));
+    } catch (e) { setStatus("manual"); }
+  };
+  return html`
+    <div className="copy">
+      <${Button} variant=${variant} onClick=${copy}>${status === "copied" ? "Copied" : "Copy summary"}</${Button}>
+      <span className="copy__status" role="status" aria-live="polite">
+        ${status === "copied" ? COPY_TEXT.copied : ""}
+      </span>
+      ${status === "manual" && html`
+        <div className="copy__manual">
+          <label htmlFor="summary-text" className="note">${COPY_TEXT.manual}</label>
+          <textarea id="summary-text" ref=${areaRef} readOnly rows="10" value=${text}></textarea>
+        </div>`}
+    </div>`;
+}
+
+function Glance({ result, answers }) {
+  const route = ROUTES[result.route];
+  const run = showsHowToRun(result) ? HOW_TO_RUN[answers.goal] : null;
+  const items = [{ k: "Route", v: route.scaleLabel }];
+  items.push({ k: result.method ? route.methodLabel || "Method" : "Approach", v: result.method ? result.method.name : route.approach.name });
+  if (run) items.push({ k: "Tool", v: run.tool });
+  if (result.method && result.method.participants && result.route !== "partner") items.push({ k: "Starting point", v: result.method.participants });
+  if (result.route === "partner" || result.route === "gutCheck") items.push({ k: "First step", v: result.route === "partner" ? "Reach out to Research" : "15–20 minutes with Research" });
+  return html`
+    <dl className="facts glance" aria-label="At a glance">
+      ${items.map(i => html`<div key=${i.k}><dt>${i.k}</dt><dd>${i.v}</dd></div>`)}
+    </dl>`;
+}
+
+function Trail({ answers, result, evidenceCheck, onClose, onEdit }) {
+  return html`
+    <section className="trail" aria-labelledby="trail-title">
+      <div className="trail__head">
+        <h3 id="trail-title">How we got here</h3>
+        <${Button} variant="ghost" onClick=${onClose}>Hide</${Button}>
+      </div>
+      <ol className="trail__list">
+        ${QUESTIONS.map((q, i) => {
+          const opt = q.options.find(o => o.value === answers[q.id]);
+          const f = FACTORS[q.id][answers[q.id]];
+          let note = f.note;
+          if (q.id === "evidence" && evidenceCheck === "checked") note = "You checked, and it didn’t answer the question.";
+          if (q.id === "evidence" && evidenceCheck === "startThere") note = "You’re going to check existing evidence first.";
+          const effect = q.id === "evidence" && evidenceCheck === "startThere" ? "lighter" : f.effect;
+          return html`
+            <li key=${q.id} className="trail__item">
+              <div>
+                <p className="trail__q">${q.short}</p>
+                <p className="trail__a">${opt.title}</p>
+              </div>
+              <div className="trail__side">
+                <span className=${"chip chip--" + effect}>${EFFECT_LABELS[effect]}</span>
+                <button type="button" className="trail__edit" onClick=${() => onEdit(i)} aria-label=${`Change your answer to: ${q.headline}`}>Change</button>
+              </div>
+              <p className="trail__why">${note}</p>
+            </li>`;
+        })}
+      </ol>
+      <p className="note">Your route: <strong>${ROUTES[result.route].scaleLabel}</strong>. ${
+        result.route === "existing" ? "Existing evidence comes first, as long as the decision isn’t a big bet."
+        : result.route === "partner" ? "Any single high-stakes factor is enough for a partnership."
+        : result.route === "gutCheck" ? "Nothing was high-stakes, but at least one factor added uncertainty worth a quick conversation."
+        : "Nothing added enough uncertainty to need outside help."
+      }</p>
+    </section>`;
+}
+
+function Result({ topic, answers, evidenceCheck, onRestart, onEdit, initialTrail }) {
+  const result = useMemo(() => evaluate(answers, evidenceCheck), [answers, evidenceCheck]);
+  const route = ROUTES[result.route];
+  const method = result.method;
+  const watch = watchOutFor(result, answers);
+  const run = showsHowToRun(result) ? HOW_TO_RUN[answers.goal] : null;
+  const samples = showsHowToRun(result) ? SAMPLE_QUESTIONS[answers.goal] : null;
+  // Participant count gets its own section only when "How to run it" doesn't already cover it.
+  const participants = run && run.participants ? null : (route.participantsOverride || (method && method.participants));
+  const summaryText = useMemo(() => buildSummary({ topic, answers, result, evidenceCheck }), [topic, answers, result, evidenceCheck]);
+  const [showTrail, setShowTrail] = useState(!!initialTrail);
+  const headRef = useRef(null);
+  const trailRef = useRef(null);
+  useEffect(() => { headRef.current && headRef.current.focus({ preventScroll: true }); }, []);
+  useEffect(() => { if (showTrail && trailRef.current) trailRef.current.scrollIntoView({ behavior: initialTrail ? "auto" : "smooth", block: "start" }); }, [showTrail]);
+
+  return html`
+    <article className="result">
+      <header className="reveal">
+        ${topic && html`
+          <div className="asked">
+            <p className="asked__label">You’re trying to find out</p>
+            <p className="asked__text">${topic}</p>
+          </div>`}
+        <p className="eyebrow">Your research route</p>
+        <h2 className="headline-xl" ref=${headRef} tabIndex="-1">${route.headline}</h2>
+        <p className="lede">${route.summary}</p>
+        ${route.extra && html`<p className="reveal__extra">${route.extra}</p>`}
+        <${RouteScale} active=${result.route} variant="result" />
+        <${Glance} result=${result} answers=${answers} />
+        <div className="reveal__actions">
+          <${CopySummary} text=${summaryText} />
+          <span className="note">${route.bringResearch ? COPY_TEXT.hintResearch : COPY_TEXT.hint}</span>
+        </div>
+      </header>
+
+      <div className="sections">
+        <${ResultSection} title="Recommended approach">
+          ${route.showsMethod && method ? html`
+            <div className="method">
+              <p className="method__label">${route.methodLabel}</p>
+              <p className="method__name">${method.name}</p>
+            </div>
+            <p>${method.description}</p>
+            ${route.methodNote && html`<p className="note">${route.methodNote}</p>`}
+            ${result.route === "gutCheck" && answers.goal === "problem" && html`<p className="note"><strong>Talk to Research before you start.</strong> Problem interviews are where a quick gut check pays off most.</p>`}
+            ${result.route === "gutCheck" && answers.need === "unclear" && html`<p className="note"><strong>Treat this as a starting guess.</strong> Settle the research question with Research before you lock in a method.</p>`}
+          ` : html`
+            <p className="method__name">${route.approach.name}</p>
+            <p>${route.approach.description}</p>
+          `}
+        </${ResultSection}>
+
+        <${ResultSection} title="Why you got this result">
+          <ul className="list">${result.reasons.map(r => html`<li key=${r}>${r}</li>`)}</ul>
+        </${ResultSection}>
+
+        <${ResultSection} title="What to do next">
+          <ol className="list list--steps">${route.nextSteps.map(s => html`<li key=${s}>${s}</li>`)}</ol>
+          ${route.bringResearch && html`
+            <div className="bring">
+              <p className="bring__title">Bring Research:</p>
+              <ul className="list">${route.bringResearch.map(s => html`<li key=${s}>${s}</li>`)}</ul>
+            </div>`}
+          ${route.note && html`<p className="note">${route.note}</p>`}
+          ${route.cta && html`<p className="cta-line">${route.cta}</p>`}
+        </${ResultSection}>
+
+        ${run && html`
+          <${ResultSection} title="How to run it" collapsible teaser=${`${run.methodName} · ${run.tool}`}>
+            <${HowToRun} run=${run} answers=${answers} route=${result.route} />
+          </${ResultSection}>`}
+
+        ${samples && html`
+          <${ResultSection} title="Questions you could ask" collapsible teaser=${`${samples.try.length} to try, ${samples.avoid.length} to avoid`}>
+            <${SampleQuestions} set=${samples} />
+          </${ResultSection}>`}
+
+        ${participants && html`
+          <${ResultSection} title="Suggested participant count">
+            <p className=${route.participantsOverride ? "" : "count"}>${participants}</p>
+            ${!route.participantsOverride && html`<p className="note">That’s enough to spot the patterns that matter for this decision. It isn’t a statistically representative sample. ${QUANT_CAVEAT}</p>`}
+          </${ResultSection}>`}
+
+        ${watch.length > 0 && html`
+          <${ResultSection} title="Watch out for">
+            <ul className="list">${watch.map(w => html`<li key=${w}>${w}</li>`)}</ul>
+          </${ResultSection}>`}
+      </div>
+
+      <aside className="callout">
+        <span className="callout__mark" aria-hidden="true">“</span>
+        <p>${FOOTER_CALLOUT}</p>
+      </aside>
+
+      <div className="result__actions">
+        <${Button} onClick=${onRestart}>Start over</${Button}>
+        <${Button} variant="secondary" onClick=${() => setShowTrail(s => !s)} aria-expanded=${showTrail} aria-controls="trail">
+          ${showTrail ? "Hide how we got here" : "See how we got here"}
+        </${Button}>
+        <${CopySummary} text=${summaryText} variant="ghost" />
+      </div>
+
+      <div id="trail" ref=${trailRef}>
+        ${showTrail && html`<${Trail} answers=${answers} result=${result} evidenceCheck=${evidenceCheck} onClose=${() => setShowTrail(false)} onEdit=${onEdit} />`}
+      </div>
+    </article>`;
+}
+
+/* =====================================================================
+   8. APP (state machine: intro → questions → [evidence check] → result)
+   ===================================================================== */
+function App() {
+  const [view, setView] = useState("intro");          // intro | question | evidenceCheck | result
+  const [index, setIndex] = useState(0);
+  const [answers, setAnswers] = useState({});
+  const [topic, setTopic] = useState("");
+  const [evidenceCheck, setEvidenceCheck] = useState(null); // null | "checked" | "startThere"
+  const [returning, setReturning] = useState(false);  // true while changing one answer from the result
+  const [reopenTrail, setReopenTrail] = useState(false); // reopen "How we got here" after an edit
+  const [dir, setDir] = useState("fwd");
+  const total = QUESTIONS.length;
+
+  const go = (nextView, nextIndex, direction) => {
+    setDir(direction);
+    setView(nextView);
+    if (nextIndex !== undefined) setIndex(nextIndex);
+    window.scrollTo({ top: 0, behavior: "instant" in window ? "instant" : "auto" });
+  };
+
+  const select = value => {
+    const q = QUESTIONS[index];
+    setAnswers(prev => ({ ...prev, [q.id]: value }));
+    if (q.id === "evidence" && value !== answers.evidence) setEvidenceCheck(null);
+  };
+
+  const finish = () => {
+    if (answers.evidence === "maybe" && !evidenceCheck) return go("evidenceCheck", undefined, "fwd");
+    go("result", undefined, "fwd");
+  };
+  const next = () => {
+    if (returning) { setReturning(false); return finish(); }
+    if (index < total - 1) return go("question", index + 1, "fwd");
+    finish();
+  };
+  const back = () => {
+    if (returning) { setReturning(false); return go("result", undefined, "back"); }
+    index === 0 ? go("intro", 0, "back") : go("question", index - 1, "back");
+  };
+  const editFromResult = i => { setReturning(true); setReopenTrail(true); go("question", i, "back"); };
+  const restart = () => { setAnswers({}); setTopic(""); setEvidenceCheck(null); setReturning(false); setReopenTrail(false); go("intro", 0, "back"); };
+
+  const stageKey = view === "question" ? "q" + index : view;
+  const q = QUESTIONS[index];
+
+  return html`
+    <div className="shell">
+      <header className="topbar">
+        <button className="wordmark" onClick=${restart} aria-label="Start over">UX Research · Route finder</button>
+        ${view === "result" && html`<span className="topbar__meta">Your result</span>`}
+      </header>
+      <main key=${stageKey} className=${"stage stage--" + dir}>
+        ${view === "intro" && html`<${Intro} topic=${topic} onTopic=${setTopic} onStart=${() => go("question", 0, "fwd")} />`}
+        ${view === "question" && html`
+          <${Question} question=${q} index=${index} total=${total} value=${answers[q.id]} returning=${returning}
+            onChange=${select} onBack=${back} onNext=${next} />`}
+        ${view === "evidenceCheck" && html`
+          <${EvidenceCheck}
+            onChecked=${() => { setEvidenceCheck("checked"); go("result", undefined, "fwd"); }}
+            onStartThere=${() => { setEvidenceCheck("startThere"); go("result", undefined, "fwd"); }}
+            onBack=${() => go("question", QUESTIONS.findIndex(x => x.id === "evidence"), "back")} />`}
+        ${view === "result" && html`
+          <${Result} topic=${topic.trim()} answers=${answers} evidenceCheck=${evidenceCheck}
+            onRestart=${restart} onEdit=${editFromResult} initialTrail=${reopenTrail} />`}
+      </main>
+    </div>`;
+}
+
+ReactDOM.createRoot(document.getElementById("app")).render(html`<${App} />`);
+</script>
+</body>
+</html>
